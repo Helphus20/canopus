@@ -8,21 +8,21 @@
 ## 2. Criação de Template HTML para Todas as Páginas do Sistema
 
 ### 2.1 Página Inicial
-- [ ] Criar estrutura básica com EJS para a página inicial. [[O que é EJS]]
-  - [ ] Criar uma seção de **Cadastro**:
-    - [ ] Tratar erro de usuário existente ou inválido.
-    - [ ] Redirecionar para a página de login em caso de sucesso.
-  - [ ] Criar uma seção de **Login**:
+- [x] Criar estrutura básica com EJS para a página inicial. [[O que é EJS]]
+  - [x] Criar uma seção de **Cadastro** (view):
+    - [ ] Tratar erro de usuário existente ou inválido (controller).
+    - [x] Redirecionar para a página de login em caso de sucesso.
+  - [x] Criar uma seção de **Login**:
     - [ ] Tratar erro caso o usuário não exista.
     - [ ] Tratar erro caso a senha esteja incorreta.
     - [ ] Gerar JWT de 2 minutos em caso de login bem-sucedido.
     - [ ] Redirecionar para o feed após o login.
 
 ## 3. Criação de Rotas de Cadastro e Login
-- [ ] Desenvolver rota de **Cadastro**:
+- [x] Desenvolver rota de **Cadastro**:
   - [ ] Verificar se o usuário já existe no banco.
   - [ ] Retornar erro adequado se o usuário já estiver cadastrado.
-- [ ] Desenvolver rota de **Login**:
+- [x] Desenvolver rota de **Login**:
   - [ ] Verificar se o usuário existe.
   - [ ] Retornar erro adequado se o usuário não existir.
   - [ ] Validar a senha e retornar erro caso esteja incorreta.

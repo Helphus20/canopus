@@ -1,19 +1,27 @@
 const express = require('express');
-const path = require('path')
-const { getAllUsers } = require('../Controllers/UserController');
+const {cadastrarUsuario} = require('../Controllers/UserController.js') //defino onde estão os métodos do arquivo de controller
 
 const router = express.Router();
 
 // Routes
 router.get('/', (req, res) => {
-    res.render('index'); // o método render é usado para processar templates dinâmicos, o sendfile não se aplicaria pq ele serve arquivos estáticos
+    /*
+        o método render é usado para processar templates dinâmicos, o sendfile não se aplicaria pq ele serve arquivos estáticos
+        aqui é passado somente o nome index, pois em script.js eu defino qual é a pasta que o ejs (o motor de visualização que configurei para o express)
+        vai usar para guardar as views. Nessa pasta, ele procura o arquivo index.ejs e renderiza
+    */
+    res.render('index');
 
 });
 
 router.get('/cadastro', (req, res) => {
-    res.render('cadastro');
+    res.render('cadastro'); //renderiza a pagina de cadastro
 })
 
-router.get('/users', getAllUsers);
+/*
+    Aqui eu defino que quando essa rota for requisitada, ela vai ser resolvida primeiramente para o controller, para o método cadastrarUsuario
+*/ 
+router.post('/cadastro', cadastrarUsuario)
+
 
 module.exports = router;

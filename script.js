@@ -1,7 +1,6 @@
 const express = require('express');
-const mysql = require('mysql2');
-const userRoutes = require('./Routes/UserRoutes');
 const app = express();
+const userRoutes = require('./Routes/UserRoutes.js');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

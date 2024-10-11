@@ -7,6 +7,27 @@
     <title>Canopus | Cadastre-se</title>
 </head>
 <body>
-    <h1>aqui terá a página de cadastro</h1>
-</body>
+    
+    <div class="container">
+        <form action="/cadastro" method="POST">
+            <h1 class="text-center">Cadastro</h1>
+            <div class="row">
+                <div class="mb-3">
+                    <label for="FormControlInput" class="form-label">Digite o seu nome de usuário</label>
+                    <input type="text" class="form-control" id="FormInputUsuario" name="nome">
+                </div>
+                <div class="mb-3">
+                    <label for="FormControlInput" class="form-label" id="senha">Digite a sua senha</label>
+                    <input type="password" class="form-control" id="FormInputSenha" name="senha"></input>
+                </div>
+                <div class="mb-3">
+                    <label for="FormControlInput" class="form-label" id="confirmacao_senha">Confirme a sua senha</label>
+                    <input type="password" class="form-control" id="FormInputSenha" name="confirmacao_senha"></input>
+                </div>
+            </div>
+
+            <input  class="btn btn-primary btn-sm" type="submit" value="Enviar cadastro">
+        </form>
+
+        <a class="btn btn-primary btn-sm" href="/index">Ir para a página de Login</a> 
 </html>
