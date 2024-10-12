@@ -1,8 +1,17 @@
 const mysql = require('mysql2');
+/*
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'aluno',
   password: 'aluno',
+  database: 'canopus'
+});
+*/
+
+const connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: '',
   database: 'canopus'
 });
 

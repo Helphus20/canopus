@@ -13,7 +13,10 @@ exports.cadastrarUsuario = (nome, senha, callback) => {
   });
 }
 
-exports.confereUsuario = () => {
-  const queryString = 'SELECT * FROM canopus.usuario WHERE nome = nome'
-
+exports.confereUsuario = (callback) => {
+  const queryString = 'SELECT * FROM canopus.usuario WHERE nome = ?'
+  
+  db.query(queryString), [nome], (err, result) => {
+    callback(err, result);
+  }
 }

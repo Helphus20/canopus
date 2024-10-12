@@ -11,12 +11,19 @@ router.get('/', (req, res) => {
         vai usar para guardar as views. Nessa pasta, ele procura o arquivo index.ejs e renderiza
     */
     res.render('index');
+});
 
+router.get('/index', (req, res) => {
+    res.render('index')
 });
 
 router.get('/cadastro', (req, res) => {
-    res.render('cadastro'); //renderiza a pagina de cadastro
-})
+    //renderiza a pagina de cadastro
+    res.render('cadastro', { 
+        error: null,
+        success: null
+    }); 
+});
 
 /*
     Aqui eu defino que quando essa rota for requisitada, ela vai ser resolvida primeiramente para o controller, para o método cadastrarUsuario
