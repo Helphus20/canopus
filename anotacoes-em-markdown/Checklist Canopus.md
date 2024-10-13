@@ -14,19 +14,19 @@
     - [x] Tratar erro de usuário existente ou inválido (controller).
     - [x] Redirecionar para a página de login em caso de sucesso.
   - [x] Criar uma seção de **Login**:
-    - [ ] Tratar erro caso o usuário não exista.
-    - [ ] Tratar erro caso a senha esteja incorreta.
+    - [x] Tratar erro caso o usuário não exista.
+    - [x] Tratar erro caso a senha esteja incorreta.
     - [ ] Gerar JWT de 2 minutos em caso de login bem-sucedido.
-    - [ ] Redirecionar para o feed após o login.
+    - [x] Redirecionar para o feed após o login.
 
 ## 3. Criação de Rotas de Cadastro e Login
 - [x] Desenvolver rota de **Cadastro**:
-  - [ ] Verificar se o usuário já existe no banco.
-  - [ ] Retornar erro adequado se o usuário já estiver cadastrado.
+  - [x] Verificar se o usuário já existe no banco.
+  - [x] Retornar erro adequado se o usuário já estiver cadastrado.
 - [x] Desenvolver rota de **Login**:
-  - [ ] Verificar se o usuário existe.
-  - [ ] Retornar erro adequado se o usuário não existir.
-  - [ ] Validar a senha e retornar erro caso esteja incorreta.
+  - [x] Verificar se o usuário existe.
+  - [x] Retornar erro adequado se o usuário não existir.
+  - [x] Validar a senha e retornar erro caso esteja incorreta.
   - [ ] Gerar JWT de 2 minutos para autenticação.
 
 ## 4. Middleware de Autenticação
