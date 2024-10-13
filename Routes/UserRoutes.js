@@ -1,5 +1,6 @@
 const express = require('express');
-const {cadastrarUsuario} = require('../Controllers/UserController.js') //defino onde estão os métodos do arquivo de controller
+const {cadastrarUsuario} = require('../Controllers/UserCadastroController.js') //defino onde estão os métodos do arquivo de controller
+const {fazerLogin} = require('../Controllers/UserLoginController.js')
 
 const router = express.Router();
 
@@ -14,7 +15,10 @@ router.get('/', (req, res) => {
 });
 
 router.get('/index', (req, res) => {
-    res.render('index')
+    res.render('index', {
+        error: null,
+        success: null
+    })
 });
 
 router.get('/cadastro', (req, res) => {
@@ -25,10 +29,14 @@ router.get('/cadastro', (req, res) => {
     }); 
 });
 
+router.get('/feed', (req, res) => {
+    res.render('feed');
+})
 /*
     Aqui eu defino que quando essa rota for requisitada, ela vai ser resolvida primeiramente para o controller, para o método cadastrarUsuario
 */ 
-router.post('/cadastro', cadastrarUsuario)
+router.post('/cadastro', cadastrarUsuario);
 
+router.post('/login', fazerLogin);
 
 module.exports = router;

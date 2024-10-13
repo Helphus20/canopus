@@ -11,7 +11,7 @@
 - [x] Criar estrutura básica com EJS para a página inicial. [[O que é EJS]]
   - [x] Criar uma seção de **Cadastro** (view):
     - [x] Tratar erro de senhas diferentes, e campos não preenchidos (controller)
-    - [ ] Tratar erro de usuário existente ou inválido (controller).
+    - [x] Tratar erro de usuário existente ou inválido (controller).
     - [x] Redirecionar para a página de login em caso de sucesso.
   - [x] Criar uma seção de **Login**:
     - [ ] Tratar erro caso o usuário não exista.

@@ -25,14 +25,17 @@ function confereUsuario(req, res, nome){
   });
 }
 
+/*
+  async indica que se trata de uma função assíncrona, ou seja, uma função que não bloqueia o fluxo de execução do programa.
+  Toda função com async sempre retorna uma promise, neste sentido, o await usado abaixo vai esperar o retorno dessa promisse para prosseguir
 
-//função assíncrona, ou seja 
-exports.cadastrarUsuario = async (req, res) => {
+*/
+ exports.cadastrarUsuario = async (req, res) => {
   const { nome, senha, confirmacao_senha } = req.body; // sintaxe de desestruturação
 
     /*
     Caso o usuário não tenha preenchido os 3 campos, retorna o código http 400.
-    Esse código indica que o servidor não pode ou não irá processar a requisição devido a alguma coisa que foi entendida como um erro 
+    Esse código (400) indica que o servidor não pode ou não irá processar a requisição devido a alguma coisa que foi entendida como um erro 
     do lado do cliente. Junto com o código http, o método render irá renderizar a página cadastro, localizada em Views,
     e envia um objeto contendo o atributo error, que será a mensagem a ser exibida no front
   */
@@ -41,7 +44,7 @@ exports.cadastrarUsuario = async (req, res) => {
   }
 
   try {
-    // Verifica se o usuário já existe, avisando para o interpretador só prosseguir com as próximas linhas depois do retorno dessa
+    // Verifica se o usuário já existe, avisando para o interpretador só prosseguir com as próximas linhas depois do retorno da Promise
     const usuarioExistente = await confereUsuario(req, res, nome);
 
     if (usuarioExistente) {
