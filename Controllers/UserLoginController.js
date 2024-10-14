@@ -12,7 +12,11 @@ function confereUsuarioExiste (nome){
 
         // se essa condição é cumprida, significa que o usuário existe
         if(result.length > 0){
-            return resolve(true);
+            const usuario = {
+                existe: true,
+                id : result[0].id
+            }
+            return resolve(usuario);
         }
         
         //retorna false caso não consiga encontrar o usuário 
@@ -51,7 +55,7 @@ exports.fazerLogin = async (req, res) => {
         const usuarioExiste = await confereUsuarioExiste(nome);
 
         //se o valor de usuárioExiste for falso, ele não existe na base de dados 
-        if (!usuarioExiste){
+        if (usuarioExiste.existe == false){
             return res.status(400).render('index', {error: 'O usuário digitado não existe', success: null});
         }
 
@@ -69,7 +73,7 @@ exports.fazerLogin = async (req, res) => {
             O último parâmetro indica que o token vai expirar em 2 minutos. Ou seja a próxima requisição que meu middleware receber vai 
             perceber que após o tempo de expiração, o token não será mais válido, não permitindo acesso à algumas partes do sistema
         */
-        const token = jwt.sign({ sub: nome }, process.env.TOKEN_KEY, { expiresIn: '10m' });
+        const token = jwt.sign({ sub: nome, subId: usuarioExiste.id }, process.env.TOKEN_KEY, { expiresIn: '10m' });
 
         /*
             armazena um cookie com nome token, e armazenando nesse cookie o token recém gerado. 

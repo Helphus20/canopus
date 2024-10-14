@@ -1,7 +1,7 @@
 const db = require('../Config/db');
 
 exports.usuarioExiste = (nome, callback) => {
-  const queryString = 'SELECT nome FROM canopus.usuario WHERE nome = ?';
+  const queryString = 'SELECT nome, id FROM canopus.usuario WHERE nome = ?';
 
   db.query(queryString, [nome], (err, result) => {
     callback(err, result);

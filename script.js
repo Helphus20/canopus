@@ -6,7 +6,11 @@ require('dotenv').config();
 const multer = require('multer');// uma biblioteca que facilita a manipulação de uploads de arquivos
 const path = require('path');
 
-// Configurando a pasta onde os uploads de imagens serão armazenados
+/* 
+  Configurando a pasta onde os uploads de imagens serão armazenados
+  O multer faz 3 coisas: 1° ele salva o arquivo como configurado no meu servidor, 
+  2° transforma o arquivo em um objeto chamado req.file para conseguir manipular melhor no meu controller
+*/
 const storage = multer.diskStorage({ //método de multer que define como e onde os arquivos serão armazenados
   destination: function (req, file, callback) {
       callback(null, 'uploads/'); // Defina a pasta onde os arquivos serão armazenados
@@ -48,6 +52,14 @@ function authentication(req, res, next) {
         }
         return res.status(401).send(err);
       }
+
+      usuarioId = user.subId
+
+      if (!usuarioId){
+        return res.status(401).send({ error: "ID do usuário não encontrado no token", success: null });
+      }
+
+      req.user = user;
       next();
     });
   }

@@ -3,7 +3,7 @@ const {cadastrarUsuario} = require('../Controllers/UserCadastroController.js'); 
 const {fazerLogin} = require('../Controllers/UserLoginController.js');
 const {fazerPostagem} = require('../Controllers/PostController.js');
 const router = express.Router();
-const {authentication} = require('../script.js'); // Importa o upload configurado no script.js
+const {upload, authentication} = require('../script.js'); // Importa o upload configurado no script.js
 
 /*
     o método render é usado para processar templates dinâmicos, o sendfile não se aplicaria pq ele serve arquivos estáticos
@@ -47,10 +47,15 @@ router.get('/newPost', authentication, (req, res) => {
     });
 });
 
+router.get('/logout', (req, res) => {
+    res.clearCookie('token'); // Remove o cookie 'token'
+    res.redirect('/index'); // Redireciona o usuário para a página de login
+});
 /*
     quando essa rota é requisitada, chama nessa ordem: o middleware que garante que o usuário está autenticado, a constante upload 
-    no arquivo script.js, que salva a imagem num caminho e com um nome específico.
+    no arquivo script.js, que salva a imagem num caminho e com um nome específico, antes de chamar o controlller
 
+    o método single do multer, é usado para aceitar upload de somente uma imagem
 */
     router.post('/newPost', authentication, upload.single('imagem'), fazerPostagem);
 /*
