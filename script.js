@@ -3,7 +3,22 @@ const jwt = require("jsonwebtoken")
 const cookieParser = require("cookie-parser");
 const app = express();
 require('dotenv').config();
+const multer = require('multer');// uma biblioteca que facilita a manipulação de uploads de arquivos
+const path = require('path');
 
+// Configurando a pasta onde os uploads de imagens serão armazenados
+const storage = multer.diskStorage({ //método de multer que define como e onde os arquivos serão armazenados
+  destination: function (req, file, callback) {
+      callback(null, 'uploads/'); // Defina a pasta onde os arquivos serão armazenados
+  },
+  filename: function (req, file, callback) {
+      // Renomeia o arquivo para evitar conflitos, adicionando a data/hora atual e o nome original do arquivo
+      callback(null, Date.now() + path.extname(file.originalname));
+  }
+});
+
+// Criando o middleware de upload com as configurações acima
+const upload = multer({ storage: storage });
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -37,7 +52,7 @@ function authentication(req, res, next) {
     });
   }
 
-  module.exports = authentication;
+  module.exports = { upload, authentication };
 
   const userRoutes = require('./Routes/UserRoutes.js');
   //módulo de rotas

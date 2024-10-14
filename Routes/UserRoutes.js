@@ -1,8 +1,8 @@
 const express = require('express');
 const {cadastrarUsuario} = require('../Controllers/UserCadastroController.js'); //defino onde estão os métodos do arquivo de controller
 const {fazerLogin} = require('../Controllers/UserLoginController.js');
-const authentication = require('../script.js');
 const router = express.Router();
+const {upload, authentication} = require('../script.js'); // Importa o upload configurado no script.js
 
 /*
     o método render é usado para processar templates dinâmicos, o sendfile não se aplicaria pq ele serve arquivos estáticos
@@ -45,6 +45,9 @@ router.get('/newPost', authentication, (req, res) => {
         success: null
     });
 });
+
+//quando essa rota é requisitada, chama upload no arquivo script.js, que salva a imagem num caminho e com um nome específico.
+router.post('/newPost', authentication, fazerPostagem);
 /*
     Aqui eu defino que, quando essa rota for requisitada, ela vai ser resolvida primeiramente para o controller, para o método cadastrarUsuario
 */ 
