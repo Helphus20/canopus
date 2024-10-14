@@ -2,18 +2,21 @@ const UserModel = require('../Models/PostModel');
 const upload = require('../script.js');
 
 exports.fazerPostagem = async (req, res) => {
-    const {imagem, legenda} = req.body
+    const { legenda} = req.body
+    const imagem = req.file;
 
     if (!imagem) {
-        return res.status(400).render('index', { error: 'Não é possível fazer uma publicação sem uma imagem', success: null });
+        return res.status(400).render('newPost', { error: 'Não é possível fazer uma publicação sem uma imagem', success: null });
     }
 
     try{
-    // Armazenar o caminho do arquivo
-    upload.single('imagem')
-    res.render('feed', {error: null, success: 'Imagem enviada!'});
+        const caminhoImg = req.file.path;
+        console.log(caminhoImg); // Caminho completo do arquivo salvo
+
+        
+        res.render('feed', {error: null, success: 'Imagem enviada!'});
     }catch{
         console.error('Erro no servidor:', error);
-        res.status(500).render('index', { error: 'Erro no servidor', success: null });
+        res.status(500).render('feed', { error: 'Erro no servidor', success: null });
     }
 }
