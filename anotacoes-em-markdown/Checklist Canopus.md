@@ -16,7 +16,7 @@
   - [x] Criar uma seção de **Login**:
     - [x] Tratar erro caso o usuário não exista.
     - [x] Tratar erro caso a senha esteja incorreta.
-    - [ ] Gerar JWT de 2 minutos em caso de login bem-sucedido.
+    - [x] Gerar JWT de 2 minutos em caso de login bem-sucedido.
     - [x] Redirecionar para o feed após o login.
 
 ## 3. Criação de Rotas de Cadastro e Login
@@ -27,15 +27,15 @@
   - [x] Verificar se o usuário existe.
   - [x] Retornar erro adequado se o usuário não existir.
   - [x] Validar a senha e retornar erro caso esteja incorreta.
-  - [ ] Gerar JWT de 2 minutos para autenticação.
+  - [x] Gerar JWT de 2 minutos para autenticação.
 
 ## 4. Middleware de Autenticação
-- [ ] Implementar middleware para verificar validade do JWT.
-  - [ ] Bloquear rotas que não sejam de cadastro ou login caso o JWT expire.
-  - [ ] Garantir que o middleware seja executado para cada requisição.
+- [x] Implementar middleware para verificar validade do JWT.
+  - [x] Bloquear rotas que não sejam de cadastro ou login caso o JWT expire.
+  - [x] Garantir que o middleware seja executado para cada requisição.
 
 ## 5. Desenvolvimento do Feed
-- [ ] Criar **painel esquerdo** com botão para adicionar uma postagem:
+- [x] Criar **painel esquerdo** com botão para adicionar uma postagem:
   - [ ] Implementar funcionalidade para adicionar uma nova postagem.
   - [ ] Garantir que a postagem seja vinculada ao usuário conectado.
   - [ ] Exibir nova postagem no topo do feed.

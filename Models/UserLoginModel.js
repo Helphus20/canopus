@@ -8,6 +8,7 @@ exports.usuarioExiste = (nome, callback) => {
   });
 }
 
+// procura no banco o usuario que tem o nome e a senha passados na view
 exports.fazerLogin = (nome, senha, callback) => {
     const queryString = 'SELECT * FROM canopus.usuario WHERE nome = ? AND senha = ?';
 

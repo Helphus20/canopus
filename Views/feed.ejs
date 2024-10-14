@@ -4,9 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>Canopus | feed</title>
+    <title>Canopus | Feed</title>
 </head>
 <body>
-    <h1>aqui será o feed, você está logado</h1>
+
+    <% if (error) { %>
+        <div class="alert alert-danger" role="alert">
+            <%= error %>
+        </div>
+    <% } %>
+
+    <% if (success) { %>
+        <div class="alert alert-success" role="alert">
+            <%= success %>
+        </div>
+    <% } %>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Painel à Esquerda -->
+            <div class="col-md-3 bg-light p-3">
+                <div class="d-grid gap-2 mb-4">
+                    <a class="btn btn-secondary" type="button">Pesquisar Usuários</a>
+                    <a class="btn btn-primary" type="button" href="/newPost">Nova Postagem</a>
+                    <a class="btn btn-danger" type="button" href="/index">Logout</a>
+                </div>
+            </div>
+
+            <!-- Seção Central para Postagens -->
+            <div class="col-md-9 p-4">
+                <h2 class="mb-5 mt-5">Feed de Postagens</h2>
+                <div class="postagem mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Título da Postagem</h5>
+                            <p class="card-text">Conteúdo da postagem vai aqui. Esta é uma postagem de exemplo para mostrar o layout.</p>
+                            <button class="btn btn-outline-primary btn-sm">Curtir</button>
+                            <button class="btn btn-outline-secondary btn-sm">Comentar</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Adicione mais postagens conforme necessário -->
+            </div>
+        </div>
+    </div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js" integrity="sha384-wEmeIV1mKuiNpFHInYZKFH9z+6me8U6hHbHG6CSywnLT64fNfYBlYLMRGmJm19gk" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -1,24 +1,26 @@
 const express = require('express');
-const {cadastrarUsuario} = require('../Controllers/UserCadastroController.js') //defino onde estão os métodos do arquivo de controller
-const {fazerLogin} = require('../Controllers/UserLoginController.js')
-
+const {cadastrarUsuario} = require('../Controllers/UserCadastroController.js'); //defino onde estão os métodos do arquivo de controller
+const {fazerLogin} = require('../Controllers/UserLoginController.js');
+const authentication = require('../script.js');
 const router = express.Router();
 
-// Routes
+/*
+    o método render é usado para processar templates dinâmicos, o sendfile não se aplicaria pq ele serve arquivos estáticos
+    aqui é passado somente o nome index, pois em script.js eu defino qual é a pasta que o ejs (o motor de visualização que configurei para o express)
+    vai usar para guardar as views. Nessa pasta, ele procura o arquivo index.ejs e renderiza
+*/
 router.get('/', (req, res) => {
-    /*
-        o método render é usado para processar templates dinâmicos, o sendfile não se aplicaria pq ele serve arquivos estáticos
-        aqui é passado somente o nome index, pois em script.js eu defino qual é a pasta que o ejs (o motor de visualização que configurei para o express)
-        vai usar para guardar as views. Nessa pasta, ele procura o arquivo index.ejs e renderiza
-    */
-    res.render('index');
+    res.render('index', {
+        error: null,
+        success: null
+    });
 });
 
 router.get('/index', (req, res) => {
     res.render('index', {
         error: null,
         success: null
-    })
+    });
 });
 
 router.get('/cadastro', (req, res) => {
@@ -29,14 +31,25 @@ router.get('/cadastro', (req, res) => {
     }); 
 });
 
-router.get('/feed', (req, res) => {
-    res.render('feed');
-})
+// Aqui adiciono o middleware de autenticação diretamente na rota
+router.get('/feed', authentication, (req, res) => {
+    res.render('feed', {
+        error: null,
+        success: null
+    });
+});
+
+router.get('/newPost', authentication, (req, res) => {
+    res.render('newPost', {
+        error: null,
+        success: null
+    });
+});
 /*
-    Aqui eu defino que quando essa rota for requisitada, ela vai ser resolvida primeiramente para o controller, para o método cadastrarUsuario
+    Aqui eu defino que, quando essa rota for requisitada, ela vai ser resolvida primeiramente para o controller, para o método cadastrarUsuario
 */ 
 router.post('/cadastro', cadastrarUsuario);
 
-router.post('/login', fazerLogin);
+router.post('/feed', fazerLogin);
 
 module.exports = router;
