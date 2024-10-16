@@ -47,7 +47,7 @@ router.get('/newPost', authentication, (req, res) => {
     });
 });
 
-router.get('/logout', (req, res) => {
+router.get('/logout', authentication, (req, res) => {
     res.clearCookie('token'); // Remove o cookie 'token'
     res.redirect('/index'); // Redireciona o usuário para a página de login
 });

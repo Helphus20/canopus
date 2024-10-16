@@ -38,10 +38,10 @@ function authentication(req, res, next) {
   const token =  req.cookies.token;
   const cookie = req.cookies;
   // Código HTTP 403 = Proibido
-  if (!cookie) return res.status(403).send({ message: "Alguma coisa deu errado." });
+  if (!cookie) return res.status(403).render('index', { error: 'Alguma coisa deu errado.', success: null });
 
   if (!token) {
-    return res.status(401).send({ error: "Token não fornecido ou inválido", success: null });
+    return res.status(401).render('index', { error: "Token não fornecido ou inválido", success: null });
   }
 
   // verifica se a assinatura do token é válida, de acordo com o TOKEN_KEY
