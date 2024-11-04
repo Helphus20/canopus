@@ -1,19 +1,14 @@
 const UserModel = require('../Models/PostModel');
 const upload = require('../script.js');
 
-function criaPostagem (usuario_id, legenda, caminho_img, horario_post){
-    return new Promise((resolve, reject) => {
-        //INSERT into postagem(usuario_id, legenda, caminho_img, horario_post) VALUES(?, ?, ?, ?);
-        UserModel.fazerPostagem(usuario_id, legenda, caminho_img, horario_post, (err, result) => {
-            if (err) {
-                console.log('Erro ao fazer postagem ;(');
-                return reject(err)
-              } else {
-                return resolve(result);
-                //resolve('feed', {error: null, success: 'Imagem enviada!'});
-              }
-        });
-    });
+async function criaPostagem(usuario_id, legenda, caminho_img, horario_post) {
+    try {
+        await UserModel.fazerPostagem(usuario_id, legenda, caminho_img, horario_post)
+        return true;
+    } catch (err) {
+        console.error('Erro ao fazer postagem', err);
+        throw err;
+    }
 }
 
 function getCurrentDatetime() {
@@ -39,7 +34,7 @@ exports.fazerPostagem = async (req, res) => {
             return res.status(400).render('newPost', {error: 'Não foi possível realizar a publicação', success: null });
         }
 
-        res.render('feed', {erro: null, success: 'Post enviado com sucesso!'});
+        res.render('feed', {error: null, success: 'Post enviado com sucesso!'});
     }catch(error) {
         console.error('Erro no servidor:', error);
         res.status(500).render('feed', { error: 'Erro no servidor', success: null });
