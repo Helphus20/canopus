@@ -1,50 +1,73 @@
 
 const UserModel = require('../Models/UserLoginModel');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
-function confereUsuarioExiste (nome){
-    return new Promise((resolve, reject) =>{
-        UserModel.usuarioExiste(nome, (err, result) => {
-        if(err){
-            console.error('Erro ao verificar usuário');
-            return reject(err);
-        }
-
-        // se essa condição é cumprida, significa que o usuário existe
+async function confereUsuarioExiste (nome){
+    try{
+        const result = await UserModel.usuarioExiste(nome);
         if(result.length > 0){
             const usuario = {
-                existe: true,
+                usuarioExiste: true,
                 id : result[0].id
             }
-            return resolve(usuario);
+            return usuario;
+        }else{
+            return {usuarioExiste: false};
         }
-        
-        //retorna false caso não consiga encontrar o usuário 
-        resolve(false);
-        });
-    });
+
+
+    }catch(err){
+        console.error('Erro ao verificar usuário');
+        throw err;
+    }
+    
 }
 
-function autenticaUsuario (nome, senha){
-    return new Promise((resolve, reject) =>{
-        UserModel.fazerLogin(nome, senha, (err, result) => {
-            if (err){
-                console.error('Erro ao autenticar');
-                return reject(err);
-            }
+async function autenticaUsuario(nome, senha) {
+    try{
+        const result = await UserModel.fazerLogin(nome);
+        if (!result || result.length === 0) {
+            throw new Error('Usuário não encontrado');
+        }
 
-            //se encontrar o usuário que tem o nome e a senha corretos, significa que o usuário e senha estão corretos
-            if (result.length > 0){
-                return resolve(true);
-            }
+        const senhaNoBanco = result[0].senha;
 
-            resolve(false);
-        });
-    });
+        const senhaCorreta = await comparaSenha(senha, senhaNoBanco);
+        return senhaCorreta;
+    }catch(err){
+        console.error('Erro ao autenticar');
+        throw err;
+    }
+}
+
+async function comparaSenha(senha, hashSenhaBanco) {
+    /*
+        Esta função irá pegar a senha, transformar em um hash usando a mesma técnica do hash e o salts, 
+        da senha que já está armazenada e comparar, para saber se os hashs finais são iguais.
+        Obrigatoriamente, um hash sempre irá retornar um mesmo resultado, se a sua entrada, salts e método de hash
+        forem os mesmos
+    */
+    try {
+        if (!senha) {
+            throw new Error('A Senha não pode estar vazia');
+        }
+        
+        if (!senha || !hashSenhaBanco) {
+            throw new Error("Senha e hash são obrigatórios para a comparação.");
+        }
+
+        //compare é uma função assíncrona, por isso await para aguardar a resolução da sua promise
+        const senhaComHash = await bcrypt.compare(senha, hashSenhaBanco);
+        return senhaComHash;
+    } catch (error) {
+        console.error('Erro ao comparar senhas: ', error)
+        throw error;
+    }
 }
 
 exports.fazerLogin = async (req, res) => {
-    const {nome, senha} = req.body 
+    const {nome, senha} = req.body //recebe o nome e senha do formulário de login
 
     //verifica se os campos estão preenchidos
     if (!nome || !senha) {
@@ -52,10 +75,10 @@ exports.fazerLogin = async (req, res) => {
     }
 
     try{
-        const usuarioExiste = await confereUsuarioExiste(nome);
+        const usuario = await confereUsuarioExiste(nome);
 
         //se o valor de usuárioExiste for falso, ele não existe na base de dados 
-        if (usuarioExiste.existe == false){
+        if (usuario.usuarioExiste == false){
             return res.status(400).render('index', {error: 'O usuário digitado não existe', success: null});
         }
 
@@ -73,7 +96,7 @@ exports.fazerLogin = async (req, res) => {
             O último parâmetro indica que o token vai expirar em 2 minutos. Ou seja a próxima requisição que meu middleware receber vai 
             perceber que após o tempo de expiração, o token não será mais válido, não permitindo acesso à algumas partes do sistema
         */
-        const token = jwt.sign({ sub: nome, subId: usuarioExiste.id }, process.env.TOKEN_KEY, { expiresIn: '10m' });
+        const token = jwt.sign({ sub: nome, subId: usuario.id }, process.env.TOKEN_KEY, { expiresIn: '10m' });
 
         /*
             armazena um cookie com nome token, e armazenando nesse cookie o token recém gerado. 

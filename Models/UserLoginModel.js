@@ -1,18 +1,24 @@
 const db = require('../Config/db');
 
-exports.usuarioExiste = (nome, callback) => {
-  const queryString = 'SELECT nome, id FROM canopus.usuario WHERE nome = ?';
-
-  db.query(queryString, [nome], (err, result) => {
-    callback(err, result);
+exports.usuarioExiste = (nome) => {
+  return new Promise((resolve,reject) =>{
+    const queryString = 'SELECT nome, id FROM canopus.usuario WHERE nome = ?';
+  
+    db.query(queryString, [nome], (err, result) => {
+      if (err) return reject (err);
+      resolve(result);
+    });
   });
-}
+};
 
 // procura no banco o usuario que tem o nome e a senha passados na view
-exports.fazerLogin = (nome, senha, callback) => {
-    const queryString = 'SELECT * FROM canopus.usuario WHERE nome = ? AND senha = ?';
-
-    db.query(queryString, [nome, senha], (err, result) => {
-        callback(err, result);
-    })
-}
+exports.fazerLogin = (nome) => {
+  return new Promise ((resolve, reject) => {
+    const queryString = 'SELECT * FROM canopus.usuario WHERE nome = ?';
+  
+    db.query(queryString, [nome], (err, result) => {
+      if (err) return reject(err);
+      return resolve(result);
+    });
+  });
+};
