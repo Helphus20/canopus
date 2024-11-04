@@ -36,12 +36,13 @@
 
 ## 5. Desenvolvimento do Feed
 - [x] Criar **painel esquerdo** com botão para adicionar uma postagem:
-  - [ ] Implementar funcionalidade para adicionar uma nova postagem.
-  - [ ] Garantir que a postagem seja vinculada ao usuário conectado.
+  - [x] Implementar funcionalidade para adicionar uma nova postagem.
+  - [x] Garantir que a postagem seja vinculada ao usuário conectado.
+  - [ ] Redirecionar para o feed após postagem para ver as postagens do usuário
   - [ ] Exibir nova postagem no topo do feed.
   - [ ] Adicionar opção de deletar a postagem.
 - [ ] Implementar **funcionalidade de pesquisa** de usuários:
-  - [ ] Adicionar campo de busca para encontrar usuários.
+  - [x] Adicionar campo de busca para encontrar usuários.
   - [ ] Tratar erro se o usuário buscado não for encontrado.
   - [ ] Exibir todas as postagens do usuário encontrado.
 

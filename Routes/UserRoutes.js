@@ -4,6 +4,7 @@ const {fazerLogin} = require('../Controllers/UserLoginController.js');
 const {fazerPostagem} = require('../Controllers/PostController.js');
 const router = express.Router();
 const {upload, authentication} = require('../script.js'); // Importa o upload configurado no script.js
+const { exibirFeed } = require('../Controllers/UserFeedController.js');
 
 /*
     o método render é usado para processar templates dinâmicos, o sendfile não se aplicaria pq ele serve arquivos estáticos
@@ -33,7 +34,7 @@ router.get('/cadastro', (req, res) => {
 });
 
 // Aqui adiciono o middleware de autenticação diretamente na rota
-router.get('/feed', authentication, (req, res) => {
+router.get('/feed', authentication, exibirFeed, (req, res) => {
     res.render('feed', {
         error: null,
         success: null

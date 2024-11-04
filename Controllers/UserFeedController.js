@@ -1,17 +1,23 @@
+const UserModel = require('../Models/FeedModel');
 
 
-
-function confereCookies (req, res){
-    return new Promise((resolve, reject) => {
-        if(err){
-            console.error('Erro ao autenticar');
-            return reject(err);
-        }
+function confereCookie(req, res) {
+    try {
+        const token = req
     
-        const cookie = req.cookies;
-        if (!cookie){
-            res.status(403);
-            return res.render('index', { error: "Erro nos cookies", success: null });
-        } 
-    });
+        if (token) {
+            console.error('Erro ao autenticar');
+            return new Error;
+        }
+
+        console.log(req);
+
+    } catch (err) {
+        console.error(err);
+        throw err
+    }
+}
+
+exports.exibirFeed = async (req, res) => {
+    await confereCookie();
 }
